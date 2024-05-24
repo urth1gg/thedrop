@@ -5,7 +5,7 @@ async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
   app.enableCors({
-    origin: 'https://www.thedropldn.com' // TODO: Change this to your Shopify store URL
+    origin: ['https://www.thedropldn.com', 'https://thedropldn.com']
   });
 
   await app.listen(3000);

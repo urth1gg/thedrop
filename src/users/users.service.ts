@@ -16,4 +16,12 @@ export class UsersService {
         return this.usersRepository.save(newUser);
     }
 
+    async getUsersById(userId: number): Promise<User> {
+        return this.usersRepository.findOne({ where: { user_id: userId } });
+    }
+
+    async getUsersByReferralCode(referralCode: string): Promise<User> {
+        return this.usersRepository.findOne({ where: { referral_code: referralCode } });
+    }
+
 }

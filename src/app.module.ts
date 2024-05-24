@@ -4,6 +4,8 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { PointsModule } from './points/points.module';
 import { UsersModule } from './users/users.module';
+import { ShopifyService } from './shopify/shopify.service';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
@@ -17,10 +19,13 @@ import { UsersModule } from './users/users.module';
       entities: [__dirname + '/**/*.entity{.ts,.js}'],
       synchronize: true,
     }),
+    ConfigModule.forRoot({
+      isGlobal: true,
+    }),
     PointsModule,
     UsersModule,
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService, ShopifyService],
 })
 export class AppModule {}
