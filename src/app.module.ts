@@ -9,18 +9,19 @@ import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
-    TypeOrmModule.forRoot({
-      type: 'mysql',
-      host: 'localhost',
-      port: 3306,
-      username: 'root',
-      password: 'password',
-      database: 'thedrop',
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: true,
-    }),
     ConfigModule.forRoot({
       isGlobal: true,
+    }),
+    TypeOrmModule.forRoot({
+      type: 'mysql',
+      host: process.env.DB_HOST,
+      port: 3306,
+      username: process.env.DB_USER_THEDROP,
+      password: process.env.DB_PASS_THEDROP,
+      database: process.env.DB_NAME_THEDROP,
+      entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: true,
+      connectorPackage: 'mysql2'
     }),
     PointsModule,
     UsersModule,
