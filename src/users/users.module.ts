@@ -8,11 +8,12 @@ import { Point } from 'src/points/point.entity';
 import { ReferralsService } from 'src/referrals/referrals.service';
 import { Referral } from 'src/referrals/referral.entity';
 import { ShopifyService } from 'src/shopify/shopify.service';
+import { MailerSendService } from 'src/mailersend/mailersend.service';
 
 @Module({
   imports: [TypeOrmModule.forFeature([User]), TypeOrmModule.forFeature([Point]), TypeOrmModule.forFeature([Referral])],
   controllers: [UsersController],
-  providers: [UsersService, PointsService, ReferralsService, ShopifyService],
+  providers: [UsersService, PointsService, ReferralsService, ShopifyService, MailerSendService],
   exports: [UsersService],
 })
 

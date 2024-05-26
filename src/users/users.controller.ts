@@ -5,6 +5,8 @@ import { PointsService } from '../points/points.service';
 import { CreatePointDto } from '../points/create-points.dto';
 import { ReferralsService } from '../referrals/referrals.service';
 import { CreateReferralDto } from 'src/referrals/create-referral.dto';
+import { MailerSendService } from 'src/mailersend/mailersend.service';
+import { ShopifyService } from 'src/shopify/shopify.service';
 
 function generateRandomNumber() {
     return Math.floor(1000000 + Math.random() * 9000000);
@@ -12,7 +14,7 @@ function generateRandomNumber() {
 
 @Controller('users')
 export class UsersController {
-    constructor(private usersService: UsersService, private pointsService: PointsService, private referralsService: ReferralsService) { }
+    constructor(private usersService: UsersService, private pointsService: PointsService, private referralsService: ReferralsService, private shopifyService: ShopifyService, private mailersendService: MailerSendService) { }
 
     @Post("/")
     async create(@Body() createUserDto: CreateUserDto) {
@@ -56,7 +58,11 @@ export class UsersController {
                 } as CreateReferralDto;
 
 
+                let { email, name } = await this.shopifyService.getCustomerEmailAndName(userWhoReferred.user_id);
 
+                if(email){
+                    await this.mailersendService.sendEmail(email, email, 'Congrats - you have a new referral!', `Congrats ${name}, You have a new referral! User has just registered using your referral code. You have been awarded 100 points for this referral.`);
+                }
                 await this.referralsService.createReferral(createReferralDto);
             }else{
                 let createPointDto = {

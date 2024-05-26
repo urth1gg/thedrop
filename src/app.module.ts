@@ -6,6 +6,7 @@ import { PointsModule } from './points/points.module';
 import { UsersModule } from './users/users.module';
 import { ShopifyService } from './shopify/shopify.service';
 import { ConfigModule } from '@nestjs/config';
+import { MailerSendService } from './mailersend/mailersend.service';
 
 @Module({
   imports: [
@@ -27,6 +28,6 @@ import { ConfigModule } from '@nestjs/config';
     UsersModule,
   ],
   controllers: [AppController],
-  providers: [AppService, ShopifyService],
+  providers: [AppService, ShopifyService, MailerSendService],
 })
 export class AppModule {}

@@ -5,4 +5,5 @@ export class CreatePointDto {
   user_id: number;
   action: string;
   created_at?: Date;
+  action_value?: string;
 }

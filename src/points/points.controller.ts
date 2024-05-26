@@ -45,6 +45,16 @@ export class PointsController {
             }
         }
 
+        if(createPointDto.action === "share_birthday") {
+            createPointDto.points = 25;
+
+            let existingPoints = await this.pointsService.getPointsByAction(createPointDto.action, createPointDto.user_id);
+
+            if(existingPoints.length > 0) {
+                return { error: 'Points already awarded for this action' };
+            }
+        }
+
         return this.pointsService.createPoint(createPointDto);
     }
 
