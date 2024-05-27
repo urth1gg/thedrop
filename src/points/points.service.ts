@@ -16,10 +16,11 @@ export class PointsService {
     async createPoint(createPointDto: CreatePointDto): Promise<Point> {
         const newPoint = this.pointsRepository.create(createPointDto);
         
-        // Add points to Shopify customer   
-
+        await this.pointsRepository.save(newPoint);
+        
         let points = await this.findAll(createPointDto.user_id);
 
+        console.log('points', points);
         if(points.length > 0) {
             let totalPoints = 0;
             points.forEach(point => {

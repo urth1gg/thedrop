@@ -56,6 +56,7 @@ export class ShopifyService {
     async addTagToCustomer(customerId, points: number): Promise<any> {
         const customer = await this.shopify.customer.get(customerId);
 
+        console.log('customer', customer);
         if (!customer) {
             return null;
         }
@@ -65,6 +66,10 @@ export class ShopifyService {
 
         let tag = this.getCustomerLevel(points);
 
+        console.log('tags');
+        console.log('points', points);  
+        console.log(tag);
+        console.log(existingTags);
         if (!existingTags.includes(tag)) {
 
             let newTags = existingTags.filter((tag: string) => !tag.includes('Discount-Tag'));

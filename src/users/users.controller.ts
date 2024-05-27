@@ -95,7 +95,10 @@ export class UsersController {
         }
 
         if (userId) {
-            return this.usersService.getUsersById(userId);
+
+           console.log(userId);
+           let user = await this.usersService.getUsersById(userId);
+           console.log(user);
         }
     }
 
